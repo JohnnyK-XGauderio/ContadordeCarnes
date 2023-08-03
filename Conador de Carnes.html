@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contador de Carnes</title>
+  <style>
+    /* Estilos CSS para a página */
+    /* Adicione seus estilos personalizados aqui */
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    .sum-button {
+      width: 50px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Contador de Carnes</h1>
+
+  <table>
+    <tr>
+      <th>Produto</th>
+      <th>Caixas</th>
+      <th>Bolsas</th>
+      <th>Individual</th>
+      <th>Total</th>
+      <th></th>
+    </tr>
+    <tr>
+      <td>Filet 230</td>
+      <td><input type="number" min="0" id="caixas1"></td>
+      <td><input type="number" min="0" id="bolsas1"></td>
+      <td><input type="number" min="0" id="individual1"></td>
+      <td id="total1">0</td>
+      <td><button class="sum-button" onclick="somarTotal(1)">Somar</button></td>
+    </tr>
+    <tr>
+      <td>Filet 240</td>
+      <td><input type="number" min="0" id="caixas2"></td>
+      <td><input type="number" min="0" id="bolsas2"></td>
+      <td><input type="number" min="0" id="individual2"></td>
+      <td id="total2">0</td>
+      <td><button class="sum-button" onclick="somarTotal(2)">Somar</button></td>
+    </tr>
+    <tr>
+      <td>Strip 375</td>
+      <td><input type="number" min="0" id="caixas3"></td>
+      <td><input type="number" min="0" id="bolsas3"></td>
+      <td><input type="number" min="0" id="individual3"></td>
+      <td id="total3">0</td>
+      <td><button class="sum-button" onclick="somarTotal(3)">Somar</button></td>
+    </tr>
+    <tr>
+      <td>Picanha</td>
+      <td><input type="number" min="0" id="caixas4"></td>
+      <td><input type="number" min="0" id="bolsas4"></td>
+      <td><input type="number" min="0" id="individual4"></td>
+      <td id="total4">0</td>
+      <td><button class="sum-button" onclick="somarTotal(4)">Somar</button></td>
+    </tr>
+    <tr>
+      <td>Sirloin 325</td>
+      <td><input type="number" min="0" id="caixas5"></td>
+      <td><input type="number" min="0" id="bolsas5"></td>
+      <td><input type="number" min="0" id="individual5"></td>
+      <td id="total5">0</td>
+      <td><button class="sum-button" onclick="somarTotal(5)">Somar</button></td>
+    </tr>
+    <tr>
+      <td>Sirloin 225</td>
+      <td><input type="number" min="0" id="caixas6"></td>
+      <td><input type="number" min="0" id="bolsas6"></td>
+      <td><input type="number" min="0" id="individual6"></td>
+      <td id="total6">0</td>
+      <td><button class="sum-button" onclick="somarTotal(6)">Somar</button></td>
+    </tr>
+    <tr>
+      <td>Rack</td>
+      <td><input type="number" min="0" id="caixas7"></td>
+      <td><input type="number" min="0" id="bolsas7"></td>
+      <td><input type="number" min="0" id="individual7"></td>
+      <td id="total7">0</td>
+      <td><button class="sum-button" onclick="somarTotal(7)">Somar</button></td>
+    </tr>
+    <tr>
+      <td>Porter (18)</td>
+      <td><input type="number" min="0" id="caixas8"></td>
+      <td><input type="number" min="0" id="bolsas8"></td>
+      <td><input type="number" min="0" id="individual8"></td>
+      <td id="total8">0</td>
+      <td><button class="sum-button" onclick="somarTotal(8)">Somar</button></td>
+    </tr>
+    <tr>
+      <td>Porter (24)</td>
+      <td><input type="number" min="0" id="caixas9"></td>
+      <td><input type="number" min="0" id="bolsas9"></td>
+      <td><input type="number" min="0" id="individual9"></td>
+      <td id="total9">0</td>
+      <td><button class="sum-button" onclick="somarTotal(9)">Somar</button></td>
+    </tr>
+    <tr>
+      <td>Ribeye</td>
+      <td><input type="number" min="0" id="caixas10"></td>
+      <td><input type="number" min="0" id="bolsas10"></td>
+      <td><input type="number" min="0" id="individual10"></td>
+      <td id="total10">0</td>
+      <td><button class="sum-button" onclick="somarTotal(10)">Somar</button></td>
+    </tr>
+
+    <tr>
+      <td colspan="6">
+        <button onclick="somarTotalGeral()">Somar Total Geral</button>
+      </td>
+    </tr>
+  </table>
+  
+  <script>
+function somarTotal(item) {
+  var caixas = parseInt(document.getElementById("caixas" + item).value) || 0;
+  var bolsas = parseInt(document.getElementById("bolsas" + item).value) || 0;
+  var individual = parseInt(document.getElementById("individual" + item).value) || 0;
+
+  var total = caixas * quantidadeCarnesCaixas[item - 1] + bolsas * quantidadeCarnesBolsas[item - 1] + individual;
+  
+  document.getElementById("total" + item).textContent = total;
+}
+
+function somarTotalGeral() {
+  var totalGeral = 0;
+
+  for (var i = 1; i <= 10; i++) {
+    var totalItem = parseInt(document.getElementById("total" + i).textContent) || 0;
+    totalGeral += totalItem;
+  }
+
+  alert("Total geral: " + totalGeral);
+}
+
+// Quantidade total de carnes correspondente a cada item em "Caixas"
+var quantidadeCarnesCaixas = [28, 36, 36, 36, 32, 36, 22, 18, 24, 48];
+
+// Quantidade total de carnes correspondente a cada item em "Bolsas"
+var quantidadeCarnesBolsas = [4, 6, 4, 4, 4, 2, 2, 1, 1, 4];
+
+  </script>
+</body>
+</html>
